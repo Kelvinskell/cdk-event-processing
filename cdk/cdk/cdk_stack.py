@@ -31,10 +31,11 @@ class CdkStack(Stack):
                                )
 
         # Create lambda function
-        sqs_lambda = lambda_.Function(self, "APISQSLambda",
+        sqs_lambda = lambda_.Function(self, 'APISQSLambda',
                                       handler='lambda_handler.handler',
                                       runtime=lambda_.Runtime.PYTHON_3_10,
-                                      code=lambda_.Code.from_asset('lambda')
+                                      code=lambda_.Code.from_asset('lambda'),
+                                      function_name='APISQSLambda'
                                       )
         
         # Create SQS event source
@@ -44,5 +45,5 @@ class CdkStack(Stack):
         sqs_lambda.add_event_source(sqs_event_source)
 
         # Create API Gateway
-        api = api_gateway.LambdaRestApi(self, 'Endpoint')
+        api = api_gateway.LambdaRestApi(self, 'Endpoint', handler='APISQSLambda')
         
