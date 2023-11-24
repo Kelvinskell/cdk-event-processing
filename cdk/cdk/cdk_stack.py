@@ -6,7 +6,8 @@ from aws_cdk import (
     aws_sqs as sqs,
     aws_lambda as lambda_,
     aws_lambda_event_sources as lambda_event_sources,
-    aws_dynamodb as dynamodb
+    aws_dynamodb as dynamodb,
+    aws_apigateway as api_gateway
 )
 
 
@@ -41,4 +42,7 @@ class CdkStack(Stack):
 
         # Add SQS event source to lambda
         sqs_lambda.add_event_source(sqs_event_source)
+
+        # Create API Gateway
+        api = api_gateway.LambdaRestApi(self, 'Endpoint')
         
