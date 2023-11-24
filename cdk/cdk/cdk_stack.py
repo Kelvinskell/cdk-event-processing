@@ -4,8 +4,7 @@ from aws_cdk import (
     Stack,
     aws_iam as iam,
     aws_sqs as sqs,
-    aws_sns as sns,
-    aws_sns_subscriptions as subs,
+    aws_lambda as lambda_,
 )
 
 
@@ -19,8 +18,4 @@ class CdkStack(Stack):
             visibility_timeout=Duration.seconds(300),
         )
 
-        topic = sns.Topic(
-            self, "CdkTopic"
-        )
-
-        topic.add_subscription(subs.SqsSubscription(queue))
+        
