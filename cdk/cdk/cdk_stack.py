@@ -5,6 +5,7 @@ from aws_cdk import (
     aws_iam as iam,
     aws_sqs as sqs,
     aws_lambda as lambda_,
+    aws_lambda_event_sources as lambda_event_sources
 )
 
 
