@@ -5,7 +5,8 @@ from aws_cdk import (
     aws_iam as iam,
     aws_sqs as sqs,
     aws_lambda as lambda_,
-    aws_lambda_event_sources as lambda_event_sources
+    aws_lambda_event_sources as lambda_event_sources,
+    aws_dynamodb as dynamodb
 )
 
 
@@ -17,8 +18,16 @@ class CdkStack(Stack):
         # create SQS queue
         queue = sqs.Queue(
             self, "CdkQueue",
+            queue_name="info-queue"
             visibility_timeout=Duration.seconds(300),
         )
+
+        # Create Dynaodb table
+        table = dynamodb.Table(self, "Table",
+                               table_name="employee-info",
+                               partition_key=dynamodb.Attribute(name="workId", type=dynamodb.AttributeType.STRING),
+                               sort_key=dynamodb.Attribute(name="secretId", type=dynamodb.AttributeType.STRING)
+                               )
 
         # Create lambda function
         sqs_lambda = lambda_.Function(self, "APISQSLambda",
