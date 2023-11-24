@@ -18,7 +18,7 @@ class CdkStack(Stack):
         # create SQS queue
         queue = sqs.Queue(
             self, "CdkQueue",
-            queue_name="info-queue"
+            queue_name="info-queue",
             visibility_timeout=Duration.seconds(300),
         )
 
